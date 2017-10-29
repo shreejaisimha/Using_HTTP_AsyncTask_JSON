@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.example.android.didyoufeelit.MainActivity">
+    tools:context="com.jaisimhas.usgs">
 
     <TextView
         android:id="@+id/title"
@@ -43,4 +43,14 @@
         android:paddingTop="16dp"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceMedium" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+
 </LinearLayout>

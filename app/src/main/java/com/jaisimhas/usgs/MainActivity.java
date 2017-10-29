@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2017 Shree Jaisimha
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-
 package com.jaisimhas.usgs;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,28 +31,47 @@ public class MainActivity extends AppCompatActivity {
     private static final String USGS_REQUEST_URL =
             "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-05-02&minfelt=50&minmagnitude=5";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_no_network_connection);
 
-		//TO DO: Check to ensure that there is network connectivity before Async Task is launched.
-        //ConnectivityManager cm =
-        //        (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-       // boolean isWiFi = cm.get == ConnectivityManager.TYPE_WIFI;
+        //Check if network connectivity is available
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+       //To do: Confirm on access
+       // NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        //if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+        if(cm!=null)
+        {
 
-		
-        // Create an {@link AsyncTask} to perform the HTTP request to the given URL
-        // on a background thread. When the result is received on the main UI thread,
-        // then update the UI.
-        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-        task.execute(USGS_REQUEST_URL);
+            //if the connectivity is available, then launch Async Task
+            // Create an {@link AsyncTask} to perform the HTTP request to the given URL
+            // on a background thread. When the result is received on the main UI thread,
+            // then update the UI.
+            //note best that the async task is defined here as an inner class.
+            setContentView(R.layout.activity_main);
+            EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+            task.execute(USGS_REQUEST_URL);
+        }
+        else
+        {
+           // Show No internet connection
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.VISIBLE);
+
+        }
+
+
     }
 
     /**
      * Update the UI with the given earthquake information.
      */
     private void updateUi(Event earthquake) {
+
+
         TextView titleTextView = (TextView) findViewById(R.id.title);
         titleTextView.setText(earthquake.title);
 
@@ -95,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
             if (result == null) {
                 return;
             }
+
+            // Hide loading indicator because the data has been loaded
+            //View loadingIndicator = findViewById(R.id.loading_indicator);
+            //loadingIndicator.setVisibility(View.GONE);
 
             updateUi(result);
         }

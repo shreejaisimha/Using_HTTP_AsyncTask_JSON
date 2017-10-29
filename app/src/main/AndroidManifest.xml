@@ -3,6 +3,9 @@
     package="com.jaisimhas.usgs" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.persmission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.persmission.CONNECTIVITY_SERVICE" />
+
 
     <application
         android:allowBackup="true"

@@ -26,7 +26,7 @@ public final class Utils {
     /** Tag for the log messages */
     public static final String LOG_TAG = Utils.class.getSimpleName();
 
-    /**
+    /**d
      * Query the USGS dataset and return an {@link Event} object to represent a single earthquake.
      */
     public static Event fetchEarthquakeData(String requestUrl) {
