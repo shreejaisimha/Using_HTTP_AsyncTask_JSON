@@ -33,9 +33,12 @@ public final class Utils {
         // Create URL object
         URL url = createUrl(requestUrl);
 
+        Log.v(LOG_TAG, "make URL request");
+
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
         try {
+            Log.v(LOG_TAG, "make HTTP request enter");
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
@@ -66,6 +69,8 @@ public final class Utils {
      */
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
+
+        Log.v(LOG_TAG, "make HTTP request enter start");
 
         // If the URL is null, then return early.
         if (url == null) {
@@ -145,6 +150,7 @@ public final class Utils {
                 String numberOfPeople = properties.getString("felt");
                 String perceivedStrength = properties.getString("cdi");
 
+                Log.v(LOG_TAG, "Title =" + title + "people" + numberOfPeople + "strength" + perceivedStrength);
                 // Create a new {@link Event} object
                 return new Event(title, numberOfPeople, perceivedStrength);
             }

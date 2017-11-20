@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** URL for earthquake data from the USGS dataset */
     private static final String USGS_REQUEST_URL =
-            "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-05-02&minfelt=50&minmagnitude=5";
-
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-05-02&minfelt=50&minmagnitude=5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_no_network_connection);
 
         //Check if network connectivity is available
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ////ConnectivityManager cm =
+                //(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
        //To do: Confirm on access
        // NetworkInfo netInfo = cm.getActiveNetworkInfo();
         //if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-        if(cm!=null)
+        //if(cm!=null)
+        if(true)
         {
-
             //if the connectivity is available, then launch Async Task
             // Create an {@link AsyncTask} to perform the HTTP request to the given URL
             // on a background thread. When the result is received on the main UI thread,
@@ -119,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Hide loading indicator because the data has been loaded
-            //View loadingIndicator = findViewById(R.id.loading_indicator);
-            //loadingIndicator.setVisibility(View.GONE);
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.GONE);
 
             updateUi(result);
         }
